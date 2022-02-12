@@ -1679,11 +1679,11 @@ window.pjaxLoaded = function(){
 					<tr>
 						<th><label><?php _e('页脚附加内容', 'argon');?></label></th>
 						<td>
-							<!-- <select name="argon_hide_footer_author">
+							<select name="argon_hide_footer_author">
 								<?php $argon_hide_footer_author = get_option('argon_hide_footer_author'); ?>
 								<option value="false" <?php if ($argon_hide_footer_author=='false'){echo 'selected';} ?>>Theme Argon By solstice23</option>
 								<option value="true" <?php if ($argon_hide_footer_author=='true'){echo 'selected';} ?>>Theme Argon</option>
-							</select> -->
+							</select>
 							<p class="description"></p>
 						</td>
 					</tr>
