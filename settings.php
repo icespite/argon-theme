@@ -52,7 +52,7 @@ function themeoptions_page(){
 							<input type="color" class="regular-text" name="argon_theme_color" value="<?php echo get_option('argon_theme_color') == "" ? "#5e72e4" : get_option('argon_theme_color'); ?>" style="height:40px;width: 80px;cursor: pointer;"/>
 							<input type="text" readonly name="argon_theme_color_hex_preview" value="<?php echo get_option('argon_theme_color') == "" ? "#5e72e4" : get_option('argon_theme_color'); ?>" style="height: 40px;width: 80px;vertical-align: bottom;background: #fff;cursor: pointer;" onclick="$('input[name=\'argon_theme_color\']').click()"/></p>
 							<p class="description"><div style="margin-top: 15px;"><?php _e("选择预置颜色 或", 'argon');?> <span onclick="$('input[name=\'argon_theme_color\']').click()" style="text-decoration: underline;cursor: pointer;"><?php _e("自定义色值", 'argon');?></span>
-								</br></br><?php _e("预置颜色：", 'argon');?></div>
+								<br/><br/><?php _e("预置颜色：", 'argon');?></div>
 								<div class="themecolor-preview-container">
 									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#5e72e4;" color="#5e72e4"></div><div class="themecolor-name">Argon (<?php _e("默认", 'argon');?>)</div></div>
 									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#fa7298;" color="#fa7298"></div><div class="themecolor-name"><?php _e("粉", 'argon');?></div></div>
@@ -67,7 +67,7 @@ function themeoptions_page(){
 									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#212121;" color="#212121"></div><div class="themecolor-name"><?php _e("黑", 'argon');?></div></div>
 									<div class="themecolor-preview-box"><div class="themecolor-preview" style="background:#795547;" color="#795547"></div><div class="themecolor-name"><?php _e("棕", 'argon');?></div></div>
 								</div>
-								</br><?php _e('主题色与 "Banner 渐变背景样式" 选项搭配使用效果更佳', 'argon');?>
+								<br/><?php _e('主题色与 "Banner 渐变背景样式" 选项搭配使用效果更佳', 'argon');?>
 								<script>
 									$("input[name='argon_theme_color']").on("change" , function(){
 										$("input[name='argon_theme_color_hex_preview']").val($("input[name='argon_theme_color']").val());
@@ -110,7 +110,7 @@ function themeoptions_page(){
 								<option value="true" <?php if ($argon_enable_immersion_color=='true'){echo 'selected';} ?>><?php _e('开启', 'argon');?></option>
 								<option value="false" <?php if ($argon_enable_immersion_color=='false'){echo 'selected';} ?>><?php _e('关闭', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('开启后，主题色将会全局沉浸。</br>页面背景、卡片及页面上的其它元素会变为沉浸式主题色（气氛色）。类似 Material You。', 'argon');?></br></p>
+							<p class="description"><?php _e('开启后，主题色将会全局沉浸。<br/>页面背景、卡片及页面上的其它元素会变为沉浸式主题色（气氛色）。类似 Material You。', 'argon');?><br/></p>
 							<div style="display: flex;flex-direction: row;flex-wrap: wrap;align-items: center;margin-top:15px;">
 								<div class="immersion-color-example" style="background: #f4f5f7;"><div class="immersion-color-example-card" style="background: #fff;"></div></div>
 								<div class="immersion-color-example-arrow"><span class="dashicons dashicons-arrow-right-alt"></span></div>
@@ -130,7 +130,7 @@ function themeoptions_page(){
 								<option value="system" <?php if ($argon_darkmode_autoswitch=='system'){echo 'selected';} ?>><?php _e('跟随系统夜间模式', 'argon');?></option>
 								<option value="time" <?php if ($argon_darkmode_autoswitch=='time'){echo 'selected';} ?>><?php _e('根据时间切换夜间模式 (22:00 ~ 7:00)', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('Argon 主题会根据这里的选项来决定是否默认使用夜间模式。', 'argon');?></br><?php _e('用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。', 'argon');?></p>
+							<p class="description"><?php _e('Argon 主题会根据这里的选项来决定是否默认使用夜间模式。', 'argon');?><br/><?php _e('用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -198,7 +198,7 @@ function themeoptions_page(){
 								</div>
 								<label><input name="argon_page_layout" type="radio" value="double-reverse" <?php if ($argon_page_layout=='double-reverse'){echo 'checked';} ?>> <?php _e('双栏(反转)', 'argon');?></label>
 							</div>
-							<p class="description" style="margin-top: 15px;"><?php _e('使用单栏时，关于左侧栏的设置将失效。', 'argon');?></br><?php _e('使用三栏时，请前往 "外观-小工具" 设置页面配置右侧栏内容。', 'argon');?></p>
+							<p class="description" style="margin-top: 15px;"><?php _e('使用单栏时，关于左侧栏的设置将失效。', 'argon');?><br/><?php _e('使用三栏时，请前往 "外观-小工具" 设置页面配置右侧栏内容。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -229,7 +229,7 @@ function themeoptions_page(){
 								</div>
 								<label><input name="argon_article_list_waterflow" type="radio" value="2and3" <?php if ($argon_article_list_waterflow=='2and3'){echo 'checked';} ?>> <?php _e('瀑布流 (列数自适应)', 'argon');?></label>
 							</div>
-							<p class="description" style="margin-top: 15px;"><?php _e('列数自适应的瀑布流会根据可视区宽度自动调整瀑布流列数。', 'argon');?></br><?php _e('建议只有使用单栏页面布局时才开启 3 列瀑布流。', 'argon');?></br><?php _e('所有瀑布流布局都会在屏幕宽度过小时变为单列布局。', 'argon');?></p>
+							<p class="description" style="margin-top: 15px;"><?php _e('列数自适应的瀑布流会根据可视区宽度自动调整瀑布流列数。', 'argon');?><br/><?php _e('建议只有使用单栏页面布局时才开启 3 列瀑布流。', 'argon');?><br/><?php _e('所有瀑布流布局都会在屏幕宽度过小时变为单列布局。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -281,19 +281,36 @@ function themeoptions_page(){
 							<select name="argon_assets_path">
 								<?php $argon_assets_path = get_option('argon_assets_path'); ?>
 								<option value="default" <?php if ($argon_assets_path=='default'){echo 'selected';} ?>><?php _e('不使用', 'argon');?></option>
-								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>jsdelivr</option>
-								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>fastgit</option>
-								<option value="sourcestorage" <?php if ($argon_assets_path=='sourcestorage'){echo 'selected';} ?>>Source Storage</option>
+								<option value="jsdelivr" <?php if ($argon_assets_path=='jsdelivr'){echo 'selected';} ?>>Jsdelivr</option>
+								<option value="fastgit" <?php if ($argon_assets_path=='fastgit'){echo 'selected';} ?>>Fastgit</option>
+								<option value="sourcegcdn" <?php if ($argon_assets_path=='sourcegcdn'){echo 'selected';} ?>>Source Global CDN</option>
+								<option value="jsdelivr_gcore" <?php if ($argon_assets_path=='jsdelivr_gcore'){echo 'selected';} ?>>Jsdelivr (gcore)</option>
+								<option value="jsdelivr_fastly" <?php if ($argon_assets_path=='jsdelivr_fastly'){echo 'selected';} ?>>Jsdelivr (fastly)</option>
+								<option value="jsdelivr_cf" <?php if ($argon_assets_path=='jsdelivr_cf'){echo 'selected';} ?>>Jsdelivr (cf)</option>
+								<option value="custom" <?php if ($argon_assets_path=='custom'){echo 'selected';} ?>><?php _e('自定义...', 'argon');?></option>
 							</select>
+							<input type="text" class="regular-text" name="argon_custom_assets_path" placeholder="https://" value="<?php echo get_option('argon_custom_assets_path', ''); ?>" autocomplete="off">
 							<p class="description"><?php _e('选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。', 'argon');?></p>
+							<p class="description custom-assets-path-desctiption"><?php _e('在自定义路径中使用 <code>%theme_version%</code> 来表示主题版本号。', 'argon');?></p>
 						</td>
+						<script>
+							$("select[name='argon_assets_path']").change(function(){
+								if ($(this).val() == 'custom') {
+									$("input[name='argon_custom_assets_path']").css('display', '');
+									$(".custom-assets-path-desctiption").css('display', '');
+								} else {
+									$("input[name='argon_custom_assets_path']").css('display', 'none');
+									$(".custom-assets-path-desctiption").css('display', 'none');
+								}
+							}).change();
+						</script>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('子目录', 'argon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e('Wordpress 安装目录', 'argon');?></label></th>
 						<td>
-							<input type="text" class="regular-text" name="argon_wp_path" value="<?php echo (get_option('argon_wp_path') == '' ? '/' : get_option('argon_wp_path')); ?>"/>
-							<p class="description"><?php _e('如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如', 'argon');?> <code>/blog/</code><?php _e('），注意前后各有一个斜杠。默认为', 'argon');?> <code>/</code> <?php _e('。', 'argon');?></br><?php _e('如果不清楚该选项的用处，请保持默认。', 'argon');?></p>
+							<input type="text" class="regular-text" name="argon_wp_path" value="<?php echo get_option('argon_wp_path', '/'); ?>"/>
+							<p class="description"><?php _e('如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如', 'argon');?> <code>/blog/</code><?php _e('），注意前后各有一个斜杠。默认为', 'argon');?> <code>/</code> <?php _e('。', 'argon');?><br/><?php _e('如果不清楚该选项的用处，请保持默认。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('日期格式', 'argon');?></h3></th></tr>
@@ -320,7 +337,7 @@ function themeoptions_page(){
 								<option value="true" <?php if ($argon_enable_headroom=='true'){echo 'selected';} ?>><?php _e('滚动时自动折叠', 'argon');?></option>
 								<option value="absolute" <?php if ($argon_enable_headroom=='absolute'){echo 'selected';} ?>><?php _e('不固定', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('始终固定悬浮: 永远固定悬浮在页面最上方', 'argon');?></br><?php _e('滚动时自动折叠: 在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?></br><?php _e('不固定: 只有在滚动到页面最顶端时才显示顶栏', 'argon');?></p>
+							<p class="description"><?php _e('始终固定悬浮: 永远固定悬浮在页面最上方', 'argon');?><br/><?php _e('滚动时自动折叠: 在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏', 'argon');?><br/><?php _e('不固定: 只有在滚动到页面最顶端时才显示顶栏', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('标题', 'argon');?></h3></th></tr>
@@ -385,7 +402,7 @@ function themeoptions_page(){
 								<option value="fullscreen" <?php if ($argon_banner_size=='fullscreen'){echo 'selected';} ?>><?php _e('全屏', 'argon');?></option>
 								<option value="hide" <?php if ($argon_banner_size=='hide'){echo 'selected';} ?>><?php _e('隐藏', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('完整: Banner 高度占用半屏', 'argon');?></br><?php _e('迷你: 减小 Banner 的内边距', 'argon');?></br><?php _e('全屏: Banner 占用全屏作为封面（仅在首页生效）', 'argon');?></br><?php _e('隐藏: 完全隐藏 Banner', 'argon');?></br></p>
+							<p class="description"><?php _e('完整: Banner 高度占用半屏', 'argon');?><br/><?php _e('迷你: 减小 Banner 的内边距', 'argon');?><br/><?php _e('全屏: Banner 占用全屏作为封面（仅在首页生效）', 'argon');?><br/><?php _e('隐藏: 完全隐藏 Banner', 'argon');?><br/></p>
 						</td>
 					</tr>
 					<tr>
@@ -402,14 +419,14 @@ function themeoptions_page(){
 									<input type="checkbox" name="argon_show_toolbar_mask" value="true" <?php if ($argon_show_toolbar_mask=='true'){echo 'checked';}?>/>	<?php _e('在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）', 'argon');?>
 								</label>
 							</div>
-							<p class="description"><?php _e('Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。', 'argon');?></br><?php _e('开启后，Banner 背景图和渐变背景选项将失效。', 'argon');?></p>
+							<p class="description"><?php _e('Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。', 'argon');?><br/><?php _e('开启后，Banner 背景图和渐变背景选项将失效。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
 						<th><label><?php _e('Banner 背景图 (地址)', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_banner_background_url" value="<?php echo get_option('argon_banner_background_url'); ?>"/>
-							<p class="description"><?php _e('需带上 http(s) ，留空则显示默认背景', 'argon');?></br><?php _e('输入', 'argon');?> <code>--bing--</code> <?php _e('调用必应每日一图', 'argon');?></p>
+							<p class="description"><?php _e('需带上 http(s) ，留空则显示默认背景', 'argon');?><br/><?php _e('输入', 'argon');?> <code>--bing--</code> <?php _e('调用必应每日一图', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -430,7 +447,7 @@ function themeoptions_page(){
 								<input type="checkbox" name="argon_banner_background_hide_shapes" value="true" <?php if ($hide_shapes=='true'){echo 'checked';}?>/>	<?php _e('隐藏背景半透明圆', 'argon');?>
 							</label>
 							<p class="description"><strong><?php _e('如果设置了背景图则不生效', 'argon');?></strong>
-								</br><div style="margin-top: 15px;"><?php _e('样式预览 (推荐选择前三个样式)', 'argon');?></div>
+								<br/><div style="margin-top: 15px;"><?php _e('样式预览 (推荐选择前三个样式)', 'argon');?></div>
 								<div style="margin-top: 10px;">
 									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#281483 15%,#8f6ed5 70%,#d782d9 94%);"><?php _e('样式', 'argon');?> 1</div>
 									<div class="banner-background-color-type-preview" style="background:linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%);"><?php _e('样式', 'argon');?> 2</div>
@@ -500,7 +517,7 @@ function themeoptions_page(){
 						<th><label><?php _e('左侧栏子标题（格言）', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_sidebar_banner_subtitle" value="<?php echo get_option('argon_sidebar_banner_subtitle'); ?>"/>
-							<p class="description"><?php _e('留空则不显示', 'argon');?></br><?php _e('输入', 'argon');?> <code>--hitokoto--</code> <?php _e('调用一言 API', 'argon');?></p>
+							<p class="description"><?php _e('留空则不显示', 'argon');?><br/><?php _e('输入', 'argon');?> <code>--hitokoto--</code> <?php _e('调用一言 API', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -572,7 +589,7 @@ function themeoptions_page(){
 						<th><label><?php _e('网站描述 (Description Meta 标签)', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="5" cols="100" name="argon_seo_description"><?php echo htmlspecialchars(get_option('argon_seo_description')); ?></textarea>
-							<p class="description"><?php _e('设置针对搜索引擎的 Description Meta 标签内容。', 'argon');?></br><?php _e('在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。', 'argon');?></p>
+							<p class="description"><?php _e('设置针对搜索引擎的 Description Meta 标签内容。', 'argon');?><br/><?php _e('在文章中，Argon 会自动根据文章内容生成描述。在其他页面中，Argon 将使用这里设置的内容。如不填，Argon 将不会在其他页面输出 Description Meta 标签。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -725,7 +742,7 @@ function themeoptions_page(){
 						<th><label><?php _e('脚注列表标题', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_reference_list_title" value="<?php echo (get_option('argon_reference_list_title') == "" ? __('参考', 'argon') : get_option('argon_reference_list_title')); ?>"/>
-							<p class="description"><?php _e('脚注列表显示在文末，在文章中有脚注的时候会显示。</br>使用 <code>ref</code> 短代码可以在文中插入脚注。', 'argon');?></p>
+							<p class="description"><?php _e('脚注列表显示在文末，在文章中有脚注的时候会显示。<br/>使用 <code>ref</code> 短代码可以在文中插入脚注。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('分享', 'argon');?></h3></th></tr>
@@ -767,7 +784,7 @@ function themeoptions_page(){
 						<th><label><?php _e('文末附加内容', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="5" cols="100" name="argon_additional_content_after_post"><?php echo htmlspecialchars(get_option('argon_additional_content_after_post')); ?></textarea>
-							<p class="description"><?php _e('将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。', 'argon');?></br><?php _e('使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> 来代替当前页面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代替当前文章作者。', 'argon');?></p>
+							<p class="description"><?php _e('将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。', 'argon');?><br/><?php _e('使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> 来代替当前页面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代替当前文章作者。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h3><?php _e('相似文章推荐', 'argon');?></h3></th></tr>
@@ -825,7 +842,7 @@ function themeoptions_page(){
 								<option value="article-header-style-1" <?php if ($argon_article_header_style=='article-header-style-1'){echo 'selected';} ?>><?php _e('样式 1', 'argon');?></option>
 								<option value="article-header-style-2" <?php if ($argon_article_header_style=='article-header-style-2'){echo 'selected';} ?>><?php _e('样式 2', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('样式预览', 'argon');?> :</br>
+							<p class="description"><?php _e('样式预览', 'argon');?> :<br/>
 								<div class="article-header-style-preview style-default"><?php _e('默认样式', 'argon');?></div>
 								<div class="article-header-style-preview style-1"><?php _e('样式 1', 'argon');?></div>
 								<div class="article-header-style-preview style-2"><?php _e('样式 2', 'argon');?></div>
@@ -883,9 +900,9 @@ function themeoptions_page(){
 								<option value="toast" <?php if ($argon_outdated_info_tip_type=='toast'){echo 'selected';} ?>><?php _e('在页面右上角弹出提示条', 'argon');?></option>
 							</select>
 							<?php _e('的方式提示', 'argon');?>
-							</br>
+							<br/>
 							<textarea type="text" name="argon_outdated_info_tip_content" rows="3" cols="100" style="margin-top: 15px;"><?php echo get_option('argon_outdated_info_tip_content') == '' ? __('本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。', 'argpm') : get_option('argon_outdated_info_tip_content'); ?></textarea>
-							<p class="description"><?php _e('天数为 -1 表示永不提示。', 'argon');?></br><code>%date_delta%</code> <?php _e('表示文章发布/修改时间与当前时间的差距，', 'argon');?><code>%post_date_delta%</code> <?php _e('表示文章发布时间与当前时间的差距，', 'argon');?><code>%modify_date_delta%</code> <?php _e('表示文章修改时间与当前时间的差距（单位: 天）。', 'argon');?></p>
+							<p class="description"><?php _e('天数为 -1 表示永不提示。', 'argon');?><br/><code>%date_delta%</code> <?php _e('表示文章发布/修改时间与当前时间的差距，', 'argon');?><code>%post_date_delta%</code> <?php _e('表示文章发布时间与当前时间的差距，', 'argon');?><code>%modify_date_delta%</code> <?php _e('表示文章修改时间与当前时间的差距（单位: 天）。', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('归档页面', 'argon');?></h2></th></tr>
@@ -1042,7 +1059,7 @@ function themeoptions_page(){
 												<div>
 													Katex CDN <?php _e('地址', 'argon');?>:
 													<input type="text" class="regular-text" name="argon_katex_cdn_url" value="<?php echo get_option('argon_katex_cdn_url') == '' ? '//cdn.jsdelivr.net/npm/katex@0.11.1/dist/' : get_option('argon_katex_cdn_url'); ?>"/>
-													<p class="description"><?php _e('Argon 会同时引用', 'argon');?> <code>katex.min.css</code> <?php _e('和', 'argon');?> <code>katex.min.js</code> <?php _e('两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜杠。', 'argon');?></br><?php _e('默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/katex@0.11.1/dist/</code></p>
+													<p class="description"><?php _e('Argon 会同时引用', 'argon');?> <code>katex.min.css</code> <?php _e('和', 'argon');?> <code>katex.min.js</code> <?php _e('两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜杠。', 'argon');?><br/><?php _e('默认为', 'argon');?> <code>//cdn.jsdelivr.net/npm/katex@0.11.1/dist/</code></p>
 												</div>
 											</label>
 										</th>
@@ -1152,7 +1169,7 @@ function themeoptions_page(){
 						<td>
 							<input type="text" class="regular-text" name="argon_zoomify_easing" value="<?php echo (get_option('argon_zoomify_easing') == '' ? 'cubic-bezier(0.4,0,0,1)' : get_option('argon_zoomify_easing')); ?>"/>
 							<p class="description">
-								<?php _e('例：', 'argon');?> <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code></br><?php _e('如果你不知道这是什么，参考', 'argon');?><a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blank"><?php _e('这里', 'argon');?></a>
+								<?php _e('例：', 'argon');?> <code>ease</code> , <code>ease-in-out</code> , <code>ease-out</code> , <code>linear</code> , <code>cubic-bezier(0.4,0,0,1)</code><br/><?php _e('如果你不知道这是什么，参考', 'argon');?><a href="https://www.w3school.com.cn/cssref/pr_animation-timing-function.asp" target="_blank"><?php _e('这里', 'argon');?></a>
 							</p>
 						</td>
 					</tr>
@@ -1185,7 +1202,7 @@ function themeoptions_page(){
 					<tr>
 						<th><label><strong style="color:#ff0000;"><?php _e('注意', 'argon');?></strong></label></th>
 						<td>
-							<p class="description"><strong style="color:#ff0000;"><?php _e('Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚本只会被执行一次。', 'argon');?></br>
+							<p class="description"><strong style="color:#ff0000;"><?php _e('Argon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚本只会被执行一次。', 'argon');?><br/>
 							<?php _e('如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入', 'argon');?> <code>window.pjaxLoaded</code> <?php _e('中', 'argon');?></strong> ，<?php _e('示例写法', 'argon');?>:
 							<pre>
 window.pjaxLoaded = function(){
@@ -1200,14 +1217,14 @@ window.pjaxLoaded = function(){
 						<th><label><?php _e('页头脚本', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="argon_custom_html_head"><?php echo htmlspecialchars(get_option('argon_custom_html_head')); ?></textarea>
-							<p class="description"><?php _e('HTML , 支持 script 等标签', 'argon');?></br><?php _e('插入到 body 之前', 'argon');?></p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'argon');?><br/><?php _e('插入到 body 之前', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
 						<th><label><?php _e('页尾脚本', 'argon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="argon_custom_html_foot"><?php echo htmlspecialchars(get_option('argon_custom_html_foot')); ?></textarea>
-							<p class="description"><?php _e('HTML , 支持 script 等标签', 'argon');?></br><?php _e('插入到 body 之后', 'argon');?></p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'argon');?><br/><?php _e('插入到 body 之后', 'argon');?></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('动画', 'argon');?></h2></th></tr>
@@ -1258,8 +1275,8 @@ window.pjaxLoaded = function(){
 								<option value="page" <?php if ($argon_comment_pagination_type=='page'){echo 'selected';} ?>><?php _e('页码', 'argon');?></option>
 							</select>
 							<p class="description">
-								<?php _e('无限加载：点击 "加载更多" 按钮来加载更多评论。', 'argon');?></br>
-								<?php _e('页码：显示页码来分页。', 'argon');?></br>
+								<?php _e('无限加载：点击 "加载更多" 按钮来加载更多评论。', 'argon');?><br/>
+								<?php _e('页码：显示页码来分页。', 'argon');?><br/>
 								<span class="go-to-wp-comment-settings"><?php _e('选择"无限加载"时，如果开启了评论分页，请将 Wordpress 的讨论设置设为 "默认显示<b>最后</b>一页，在每个页面顶部显示<b>新的</b>评论"。', 'argon');?> <a href="./options-discussion.php" target="_blank"><?php _e('去设置', 'argon');?>&gt;&gt;&gt;</a></span>
 								<?php if (get_option('page_comments') == '1' && get_option('default_comments_page') != 'newest' && get_option('comment_order') != 'desc') {
 									echo '<script>$(".go-to-wp-comment-settings").addClass("wrong-options");</script>';
@@ -1296,7 +1313,7 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_comment_emotion_keyboard=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
 								<option value="false" <?php if ($argon_comment_emotion_keyboard=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
 							</select>
-							<p class="description"><?php _e('开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。', 'argon');?></br><a href="https://argon-docs.solstice23.top/#/emotions" target="_blank"><?php _e('如何添加新的表情或修改已有表情列表？', 'argon');?></a></p>
+							<p class="description"><?php _e('开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。', 'argon');?><br/><a href="https://argon-docs.solstice23.top/#/emotions" target="_blank"><?php _e('如何添加新的表情或修改已有表情列表？', 'argon');?></a></p>
 						</td>
 					</tr>
 					<tr>
@@ -1480,7 +1497,7 @@ window.pjaxLoaded = function(){
 						<th><label>Gravatar CDN</label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_gravatar_cdn" value="<?php echo get_option('argon_gravatar_cdn' , ''); ?>"/>
-							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?></br><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.pho.ink/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
+							<p class="description"><?php _e('使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。', 'argon');?><br/><?php _e('在中国速度较快的一些 CDN :', 'argon');?><code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">gravatar.pho.ink/avatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">cdn.v2ex.com/gravatar/</code> , <code onclick="$('input[name=\'argon_gravatar_cdn\']').val(this.innerText);" style="cursor: pointer;">dn-qiniu-avatar.qbox.me/avatar/</code></p>
 						</td>
 					</tr>
 					<tr>
@@ -1493,6 +1510,128 @@ window.pjaxLoaded = function(){
 							</select>
 							<p class="description"><?php _e('在评论者没有设置 Gravatar 时自动生成文字头像，头像颜色由邮箱哈希计算。生成时会在 Console 中抛出 404 错误，但没有影响。', 'argon');?></p>
 						</td>
+					</tr>
+					<tr><th class="subtitle"><h2><?php _e('搜索', 'argon');?></h2></th></tr>
+					<tr><th class="subtitle"><h3><?php _e('搜索过滤器', 'argon');?></h3></th></tr>
+					<tr>
+						<th><label><?php _e('启用过滤器', 'argon');?></label></th>
+						<td>	
+							<select name="argon_enable_search_filters">
+								<?php $argon_enable_search_filters = get_option('argon_enable_search_filters', 'true'); ?>
+								<option value="true" <?php if ($argon_enable_search_filters=='true'){echo 'selected';} ?>><?php _e('启用', 'argon');?></option>
+								<option value="false" <?php if ($argon_enable_search_filters=='false'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
+							</select>
+							<p class="description"><?php _e('开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说及其他类型文章', 'argon');?></p>
+						</td>
+					</tr>
+					<script>	
+						$("select[name='argon_enable_search_filters']").change(function(){
+							if ($(this).val() == 'true') {
+								$(".argon-search-filters-type").css('display', '');
+							} else {
+								$(".argon-search-filters-type").css('display', 'none');
+							}
+						}).change();
+					</script>
+					<tr class="argon-search-filters-type">
+						<th><label><?php _e('过滤器类型', 'argon');?></label></th>
+						<style>
+							.search-filters-container {
+								margin-top: 10px;
+								margin-bottom: 15px;
+								width: calc(100% - 250px);
+							}
+							@media screen and (max-width:960px){
+								.search-filters-container {
+									width: 100%;
+								}
+							}
+							#search_filters_active, #search_filters_inactive {
+								background: rgba(0, 0, 0, .05);
+								padding: 10px 15px;
+								margin-top: 10px;
+								border-radius: 5px;
+								padding-bottom: 0;
+								min-height: 48px;
+								box-sizing: border-box;
+							}
+							.search-filter-item {
+								background: #fafafa;
+								width: max-content !important;
+								height: max-content !important;
+								border-radius: 100px;
+								padding: 5px 15px;
+								cursor: move;
+								display: inline-block;
+								margin-right: 8px;
+								margin-bottom: 10px;
+							}
+							#search_filters_active .search-filter-item:before {
+								content: '⬜ ';
+							}
+							#search_filters_active .search-filter-item.active:before {
+								content: '☑️ ';
+							}
+						</style>
+						<td>
+							<input type="text" class="regular-text" name="argon_search_filters_type" value="<?php echo get_option('argon_search_filters_type', '*post,*page,shuoshuo'); ?>" style="display: none;"/>
+							<?php _e('拖动来自定义启用的过滤器，单击来切换默认勾选状态', 'argon');?>
+							<div class="search-filters-container">
+								<?php _e('启用', 'argon');?>
+								<div id="search_filters_active"></div>
+							</div>
+							<div class="search-filters-container">
+								<?php _e('不启用', 'argon');?>
+								<div id="search_filters_inactive">
+									<?php 
+										$all_post_types= get_post_types(array(
+											'public'   => true,
+										), 'objects');
+										foreach ($all_post_types as $post_type) {
+											if ($post_type -> name == 'attachment'){
+												continue;
+											}
+											echo '<div class="search-filter-item" filter-name="'. $post_type -> name .'">'. $post_type -> label .'</div>';
+										}
+									?>
+								</div>
+							</div>
+						</td>
+						<script>
+							function updateSearchFilters(){
+								let searchFilters = "";
+								$("#search_filters_active .search-filter-item").each(function(index, item) {
+									if (index != 0){ searchFilters += ",";}
+									if ($(item).hasClass('active')){ searchFilters += "*"; }
+									searchFilters += item.getAttribute("filter-name");
+								});
+								$("input[name='argon_search_filters_type']").val(searchFilters);
+							}
+							!function(){
+								let searchFilters = $("input[name='argon_search_filters_type']").val().split(",");
+								for (let filter of searchFilters){
+									if (filter[0] == "*"){
+										$(".search-filter-item[filter-name='"+ filter.substring(1) +"']").addClass('active');
+										filter = filter.substring(1);
+									}
+									let itemDiv = $("#search_filters_inactive .search-filter-item[filter-name='"+ filter + "']");
+									$("#search_filters_active").append(itemDiv.prop("outerHTML"));
+									itemDiv.remove();
+								}
+							}();
+							$(document).on("click", "#search_filters_active .search-filter-item", function(){
+								$(this).toggleClass("active");
+								updateSearchFilters();
+							});
+							dragula(
+								[document.querySelector('#search_filters_active'), document.querySelector('#search_filters_inactive')],
+								{
+									direction: 'vertical'
+								}
+							).on('dragend', function(){
+								updateSearchFilters();
+							});
+						</script>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('杂项', 'argon');?></h2></th></tr>
 					<tr>
@@ -1510,7 +1649,7 @@ window.pjaxLoaded = function(){
 						<th><label><?php _e('首页隐藏特定 分类/Tag 下的文章', 'argon');?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="argon_hide_categories" value="<?php echo get_option('argon_hide_categories'); ?>"/>
-							<p class="description"><?php _e('输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏', 'argon');?></br><a onclick="$('#id_of_categories_and_tags').slideDown(500);" style="cursor: pointer;"><?php _e('点此查看', 'argon');?></a><?php _e('所有分类和 Tag 的 ID', 'argon');?>
+							<p class="description"><?php _e('输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏', 'argon');?><br/><a onclick="$('#id_of_categories_and_tags').slideDown(500);" style="cursor: pointer;"><?php _e('点此查看', 'argon');?></a><?php _e('所有分类和 Tag 的 ID', 'argon');?>
 								<?php
 									echo "<div id='id_of_categories_and_tags' style='display: none;'><div style='font-size: 22px;margin-bottom: 10px;margin-top: 10px;'>分类</div>";
 									$categories = get_categories(array(
@@ -1585,19 +1724,6 @@ window.pjaxLoaded = function(){
 								<option value="true" <?php if ($argon_fold_long_shuoshuo=='true'){echo 'selected';} ?>><?php _e('折叠', 'argon');?></option>
 							</select>
 							<p class="description"><?php _e('开启后，长说说在预览状态下会被折叠，需要手动展开', 'argon');?></p>
-						</td>
-					</tr>
-					<tr>
-						<th><label><?php _e('搜索结果类型过滤器', 'argon');?></label></th>
-						<td>
-							<select name="argon_search_post_filter">
-								<?php $argon_search_post_filter = get_option('argon_search_post_filter', 'post,page'); ?>
-								<option value="off" <?php if ($argon_search_post_filter=='off'){echo 'selected';} ?>><?php _e('禁用', 'argon');?></option>
-								<option value="post,page" <?php if ($argon_search_post_filter=='post,page'){echo 'selected';} ?>><?php _e('启用，默认不包括说说', 'argon');?></option>
-								<option value="post,page,shuoshuo" <?php if ($argon_search_post_filter=='post,page,shuoshuo'){echo 'selected';} ?>><?php _e('启用，默认包括说说', 'argon');?></option>
-								<option value="post,page,hide_shuoshuo" <?php if ($argon_search_post_filter=='post,page,hide_shuoshuo'){echo 'selected';} ?>><?php _e('启用，隐藏说说分类', 'argon');?></option>
-							</select>
-							<p class="description"><?php _e('开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说', 'argon');?></p>
 						</td>
 					</tr>
 					<tr>
@@ -2047,7 +2173,8 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_comment_pagination_type');
 		argon_update_option('argon_who_can_visit_comment_edit_history');
 		argon_update_option('argon_home_show_shuoshuo');
-		argon_update_option('argon_search_post_filter');
+		argon_update_option('argon_enable_search_filters');
+		argon_update_option('argon_search_filters_type');
 		argon_update_option('argon_darkmode_autoswitch');
 		argon_update_option('argon_enable_amoled_dark');
 		argon_update_option('argon_outdated_info_time_type');
@@ -2061,6 +2188,7 @@ function argon_update_themeoptions(){
 		argon_update_option('argon_article_list_layout');
 		argon_update_option('argon_enable_pangu');
 		argon_update_option('argon_assets_path');
+		argon_update_option('argon_custom_assets_path');
 		argon_update_option('argon_comment_ua');
 		argon_update_option('argon_wp_path');
 		argon_update_option('argon_dateformat');

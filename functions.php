@@ -1,6 +1,6 @@
 <?php
 if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
-	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0px;z-index: 2147483647;'>" . __("Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
+	echo "<div style='background: #5e72e4;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0;z-index: 2147483647;'>" . __("Argon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
 }
 function theme_slug_setup() {
 	add_theme_support('title-tag');
@@ -19,10 +19,22 @@ switch ($argon_assets_path) {
     case "fastgit":
 	    $GLOBALS['assets_path'] = "https://raw.fastgit.org/solstice23/argon-theme/v" . $argon_version;
         break;
-    case "AHCDN":
-    case "sourcestorage":
-	    $GLOBALS['assets_path'] = "https://source.ahdark.com/wordpress/theme/argon-theme/" . $argon_version;
+    case "sourcegcdn":
+	    $GLOBALS['assets_path'] = "https://gh.sourcegcdn.com/solstice23/argon-theme/v" . $argon_version;
         break;
+	case "jsdelivr_gcore":
+	    $GLOBALS['assets_path'] = "https://gcore.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
+        break;
+	case "jsdelivr_fastly":
+	    $GLOBALS['assets_path'] = "https://fastly.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
+        break;
+	case "jsdelivr_cf":
+	    $GLOBALS['assets_path'] = "https://testingcf.jsdelivr.net/gh/solstice23/argon-theme@" . $argon_version;
+        break;
+	case "custom":
+		$GLOBALS['assets_path'] = preg_replace('/\/$/', '', get_option("argon_custom_assets_path"));
+		$GLOBALS['assets_path'] = preg_replace('/%theme_version%/', $argon_version, $GLOBALS['assets_path']);
+		break;
     default:
 	    $GLOBALS['assets_path'] = get_bloginfo('template_url');
 }
@@ -84,6 +96,26 @@ if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 			update_option("argon_enable_fancybox", 'true');
 			update_option("argon_enable_zoomify", 'false');
 		}
+	}
+	if (version_compare($argon_last_version, '1.3.4', '<')){
+		switch (get_option('argon_search_post_filter', 'post,page')){
+			case 'post,page':
+				update_option("argon_enable_search_filters", 'true');
+				update_option("argon_search_filters_type", '*post,*page,shuoshuo');
+				break;
+			case 'post,page,shuoshuo':
+				update_option("argon_enable_search_filters", 'true');
+				update_option("argon_search_filters_type", '*post,*page,*shuoshuo');
+				break;
+			case 'post,page,hide_shuoshuo':
+				update_option("argon_enable_search_filters", 'true');
+				update_option("argon_search_filters_type", '*post,*page');
+				break;
+			case 'off':
+			default:
+				update_option("argon_enable_search_filters", 'false');
+				break;
+		}		
 	}
 	update_option("argon_last_version", $GLOBALS['theme_version']);
 }
@@ -407,7 +439,7 @@ function get_seo_description(){
 	global $post;
 	if (is_single() || is_page()){
 		if (get_the_excerpt() != ""){
-			return preg_replace('/ \[&hellip;\]$/', '&hellip;', get_the_excerpt());
+			return preg_replace('/ \[&hellip;]$/', '&hellip;', get_the_excerpt());
 		}
 		if (!post_password_required()){
 			return htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
@@ -604,7 +636,7 @@ function get_article_meta($type){
 	if ($type == 'sticky'){
 		return '<div class="post-meta-detail post-meta-detail-stickey">
 					<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-					' . __('置顶', 'argon') . '
+					' . _x('置顶', 'pinned', 'argon') . '
 				</div>';
 	}
 	if ($type == 'needpassword'){
@@ -630,9 +662,14 @@ function get_article_meta($type){
 				</div>';
 	}
 	if ($type == 'views'){
+		if (function_exists('pvc_get_post_views')){
+			$views = pvc_get_post_views(get_the_ID());
+		}else{
+			$views = get_post_views(get_the_ID());
+		}
 		return '<div class="post-meta-detail post-meta-detail-views">
 					<i class="fa fa-eye" aria-hidden="true"></i> ' .
-					get_post_views(get_the_ID()) .
+					$views .
 				'</div>';
 	}
 	if ($type == 'comments'){
@@ -756,10 +793,7 @@ function send_mail($to, $subject, $content){
 	wp_mail($to, $subject, $content, array('Content-Type: text/html; charset=UTF-8'));
 }
 function check_email_address($email){
-	if (!preg_match("/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/", $email)) {
-		return false;
-	}
-	return true;
+	return (bool) preg_match( "/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+(([.\-])[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/", $email );
 }
 //检验评论 Token 和用户 Token 是否一致
 function check_comment_token($id){
@@ -849,23 +883,19 @@ function can_visit_comment_edit_history($id){
 	switch ($who_can_visit_comment_edit_history) {
 		case 'everyone':
 			return true;
-			break;
 
 		case 'commentsender':
 			if (check_comment_token($id) || check_comment_userid($id)){
 				return true;
 			}
 			return false;
-			break;
 
 		default:
 			if (current_user_can("moderate_comments")){
 				return true;
 			}
 			return false;
-			break;
 	}
-	return false;
 }
 //获取评论编辑记录
 function get_comment_edit_history(){
@@ -985,7 +1015,7 @@ function set_comment_upvotes($id){
 	return $upvotes;
 }
 function is_comment_upvoted($id){
-	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
+	$upvotedList = isset( $_COOKIE['argon_comment_upvoted'] ) ? $_COOKIE['argon_comment_upvoted'] : '';
 	if (in_array($id, explode(',', $upvotedList))){
 		return true;
 	}
@@ -1005,7 +1035,7 @@ function upvote_comment(){
 			'total_upvote' => 0
 		)));
 	}
-	$upvotedList = $_COOKIE['argon_comment_upvoted'] ?? '';
+	$upvotedList = isset( $_COOKIE['argon_comment_upvoted'] ) ? $_COOKIE['argon_comment_upvoted'] : '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -1054,12 +1084,12 @@ function argon_comment_format($comment, $args, $depth){
 			<div class="comment-item-title">
 				<div class="comment-name">
 					<div class="comment-author"><?php echo get_comment_author_link();?></div>
-					<?php echo get_comment_parent_info($comment); ?>
 					<?php if (user_can($comment -> user_id , "update_core")){
 						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
 					?>
+					<?php echo get_comment_parent_info($comment); ?>
 					<?php if ($GLOBALS['argon_comment_options']['enable_pinning'] && get_comment_meta(get_comment_ID(), "pinned", true) == "true"){
-						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . __('置顶', 'argon') . '</span>';
+						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . _x('置顶', 'pinned', 'argon') . '</span>';
 					}?>
 					<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
 						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
@@ -1093,7 +1123,7 @@ function argon_comment_format($comment, $args, $depth){
 					if (get_comment_meta(get_comment_ID(), "pinned", true) == "true") { ?>
 						<button class="comment-unpin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('取消置顶', 'argon')?></button>
 					<?php } else { ?>
-						<button class="comment-pin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('置顶', 'argon')?></button>
+						<button class="comment-pin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _ex('置顶', 'to pin', 'argon')?></button>
 				<?php }
 					} ?>
 				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("argon_comment_allow_editing") != "false")) { ?>
@@ -1730,6 +1760,17 @@ function get_argon_comment_paginate_links_prev_url(){
 	if (!isset($url[1])){
 		return NULL;
 	}
+	
+	if (isset($_GET['fill_first_page']) || strpos(parse_url($_SERVER['REQUEST_URI'])['path'], 'comment-page-') === false){
+		$parsed_url = parse_url($url[1]);
+		if (!isset($parsed_url['query'])){
+			$parsed_url['query'] = 'fill_first_page=true';
+		}else
+			if (strpos($parsed_url['query'], 'fill_first_page=true') === false){
+			$parsed_url['query'] .= '&fill_first_page=true';
+		}
+		return $parsed_url['scheme'] . '://' . $parsed_url['host'] . $parsed_url['path'] . '?' . $parsed_url['query'];
+	}
 	return $url[1];
 }
 //评论重排序（置顶优先）
@@ -1761,8 +1802,17 @@ function argon_get_comments(){
 		'post__in'		 => array(get_the_ID()),
 		'type'           => 'comment',
 		'order'          => 'DESC',
-		'orderby'        => 'comment_date_gmt'
+		'orderby'        => 'comment_date_gmt',
+		'status'         => 'approve'
 	);
+	if (is_user_logged_in()){
+		$args['include_unapproved'] = array(get_current_user_id());
+	} else {
+		$unapproved_email = wp_get_unapproved_comment_author_email();
+		if ($unapproved_email) {
+			$args['include_unapproved'] = array($unapproved_email);
+		}
+	}
 
 	$comment_query = new WP_Comment_Query;
 	$comments = $comment_query -> query($args);
@@ -1777,8 +1827,11 @@ function argon_get_comments(){
 	if (get_option("argon_comment_pagination_type", "feed") == "page"){
 		return $comments;
 	}
+	if (!isset($_GET['fill_first_page']) && strpos(parse_url($_SERVER['REQUEST_URI'])['path'], 'comment-page-') !== false){
+		return $comments;
+	}
 	$comments_per_page = get_option('comments_per_page');
-	$comments_count = 0;
+	$comments_count = 0; 
 	foreach ($comments as $comment){
 		if ($comment -> comment_parent == 0){
 			$comments_count++;
@@ -1898,7 +1951,7 @@ if (get_option('argon_gravatar_cdn' , '') != ''){
 	add_filter('get_avatar_url', 'gravatar_cdn');
 }
 function text_gravatar($url){
-	$url = preg_replace("/[\?\&]d[^&]+/i", "" , $url);
+	$url = preg_replace("/[?&]d[^&]+/i", "" , $url);
 	$url .= '&d=404';
 	return $url;
 }
@@ -1932,7 +1985,7 @@ function set_shuoshuo_upvotes($ID){
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
 	$ID = $_POST["shuoshuo_id"];
-	$upvotedList = $_COOKIE['argon_shuoshuo_upvoted'] ?? '';
+	$upvotedList = isset( $_COOKIE['argon_shuoshuo_upvoted'] ) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
@@ -2346,7 +2399,7 @@ function argon_admin_i18n_info(){
 add_filter('admin_head', 'argon_admin_i18n_info');
 //主题文章短代码解析
 function shortcode_content_preprocess($attr, $content = ""){
-	if ($attr['nested'] ?? 'true' != 'false'){
+	if ( isset( $attr['nested'] ) ? $attr['nested'] : 'true' != 'false' ){
 		return do_shortcode($content);
 	}else{
 		return $content;
@@ -2360,7 +2413,7 @@ add_shortcode('label','shortcode_label');
 function shortcode_label($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<span class='badge";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'green':
 			$out .= " badge-success";
@@ -2379,7 +2432,7 @@ function shortcode_label($attr,$content=""){
 			$out .= " badge-primary";
 			break;
 	}
-	$shape = $attr['shape'] ?? 'square';
+	$shape = isset( $attr['shape'] ) ? $attr['shape'] : 'square';
 	if ($shape=="round"){
 		$out .= " badge-pill";
 	}
@@ -2393,10 +2446,10 @@ function shortcode_progressbar($attr,$content=""){
 	if ($content != ""){
 		$out .= "<div class='progress-label'><span>" . $content . "</span></div>";
 	}
-	$progress = $attr['progress'] ?? 100;
+	$progress = isset( $attr['progress'] ) ? $attr['progress'] : 100;
 	$out .= "<div class='progress-percentage'><span>" . $progress . "%</span></div>";
 	$out .= "</div><div class='progress'><div class='progress-bar";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " bg-primary";
@@ -2423,7 +2476,7 @@ function shortcode_progressbar($attr,$content=""){
 add_shortcode('checkbox','shortcode_checkbox');
 function shortcode_checkbox($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
-	$checked = $attr['checked'] ?? 'false';
+	$checked = isset( $attr['checked'] ) ? $attr['checked'] : 'false';
 	$inline = isset($attr['inline']) ? $attr['checked'] : 'false';
 	$out = "<div class='shortcode-todo custom-control custom-checkbox";
 	if ($inline == 'true'){
@@ -2441,7 +2494,7 @@ add_shortcode('alert','shortcode_alert');
 function shortcode_alert($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<div class='alert";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " alert-primary";
@@ -2480,7 +2533,7 @@ add_shortcode('admonition','shortcode_admonition');
 function shortcode_admonition($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<div class='admonition shadow-sm";
-	$color = $attr['color'] ?? 'indigo';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
 	switch ($color){
 		case 'indigo':
 			$out .= " admonition-primary";
@@ -2525,12 +2578,12 @@ add_shortcode('collapse','shortcode_collapse_block');
 add_shortcode('fold','shortcode_collapse_block');
 function shortcode_collapse_block($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
-	$collapsed = $attr['collapsed'] ?? 'true';
-	$show_border_left = $attr['showleftborder'] ?? 'false';
+	$collapsed = isset( $attr['collapsed'] ) ? $attr['collapsed'] : 'true';
+	$show_border_left = isset( $attr['showleftborder'] ) ? $attr['showleftborder'] : 'false';
 	$out = "<div " ;
 	$out .= " class='collapse-block shadow-sm";
-	$color = $attr['color'] ?? 'none';
-	$title = $attr['title'] ?? '';
+	$color = isset( $attr['color'] ) ? $attr['color'] : 'none';
+	$title = isset( $attr['title'] ) ? $attr['title'] : '';
 	switch ($color){
 		case 'indigo':
 			$out .= " collapse-block-primary";
@@ -2582,13 +2635,13 @@ function shortcode_collapse_block($attr,$content=""){
 }
 add_shortcode('friendlinks','shortcode_friend_link');
 function shortcode_friend_link($attr,$content=""){
-	$sort = $attr['sort'] ?? 'name';
-	$order = $attr['order'] ?? 'ASC';
+	$sort = isset( $attr['sort'] ) ? $attr['sort'] : 'name';
+	$order = isset( $attr['order'] ) ? $attr['order'] : 'ASC';
 	$friendlinks = get_bookmarks( array(
 		'orderby' => $sort ,
 		'order'   => $order
 	));
-	$style = $attr['style'] ?? '1';
+	$style = isset( $attr['style'] ) ? $attr['style'] : '1';
 	switch ($style) {
 		case '1':
 			$class = "friend-links-style1";
@@ -2644,7 +2697,7 @@ function shortcode_friend_link_simple($attr,$content=""){
 	$content = trim(strip_tags($content));
 	$entries = explode("\n" , $content);
 
-	$shuffle = $attr['shuffle'] ?? 'false';
+	$shuffle = isset( $attr['shuffle'] ) ? $attr['shuffle'] : 'false';
 	if ($shuffle == "true"){
 		mt_srand();
 		$group_start = 0;
@@ -2761,8 +2814,8 @@ add_shortcode('spoiler','shortcode_hidden');
 function shortcode_hidden($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 	$out = "<span class='argon-hidden-text";
-	$tip = $attr['tip'] ?? '';
-	$type = $attr['type'] ?? 'blur';
+	$tip = isset( $attr['tip'] ) ? $attr['tip'] : '';
+	$type = isset( $attr['type'] ) ? $attr['type'] : 'blur';
 	if ($type == "background"){
 		$out .= " argon-hidden-text-background";
 	}else{
@@ -2778,10 +2831,10 @@ function shortcode_hidden($attr,$content=""){
 add_shortcode('github','shortcode_github');
 function shortcode_github($attr,$content=""){
 	$github_info_card_id = mt_rand(1000000000 , 9999999999);
-	$author = $attr['author'] ?? '';
-	$project = $attr['project'] ?? '';
-	$getdata = $attr['getdata'] ?? 'frontend';
-	$size = $attr['size'] ?? 'full';
+	$author = isset( $attr['author'] ) ? $attr['author'] : '';
+	$project = isset( $attr['project'] ) ? $attr['project'] : '';
+	$getdata = isset( $attr['getdata'] ) ? $attr['getdata'] : 'frontend';
+	$size = isset( $attr['size'] ) ? $attr['size'] : 'full';
 
 	$description = "";
 	$stars = "";
@@ -2847,11 +2900,11 @@ function shortcode_github($attr,$content=""){
 }
 add_shortcode('video','shortcode_video');
 function shortcode_video($attr,$content=""){
-	$url = $attr['mp4'] ?? '';
-	$url = $attr['url'] ?? $url;
-	$width = $attr['width'] ?? '';
-	$height = $attr['height'] ?? '';
-	$autoplay = $attr['autoplay'] ?? 'false';
+	$url = isset( $attr['mp4'] ) ? $attr['mp4'] : '';
+	$url = isset( $attr['url'] ) ? $attr['url'] : $url;
+	$width = isset( $attr['width'] ) ? $attr['width'] : '';
+	$height = isset( $attr['height'] ) ? $attr['height'] : '';
+	$autoplay = isset( $attr['autoplay'] ) ? $attr['autoplay'] : 'false';
 	$out = "<video";
 	if ($width != ''){
 		$out .= " width='" . $width . "'";
@@ -2873,12 +2926,12 @@ function shortcode_hide_reading_time($attr,$content=""){
 }
 add_shortcode('post_time','shortcode_post_time');
 function shortcode_post_time($attr,$content=""){
-	$format = $attr['format'] ?? 'Y-n-d G:i:s';
+	$format = isset( $attr['format'] ) ? $attr['format'] : 'Y-n-d G:i:s';
 	return get_the_time($format);
 }
 add_shortcode('post_modified_time','shortcode_post_modified_time');
 function shortcode_post_modified_time($attr,$content=""){
-	$format = $attr['format'] ?? 'Y-n-d G:i:s';
+	$format = isset( $attr['format'] ) ? $attr['format'] : 'Y-n-d G:i:s';
 	return get_the_modified_time($format);
 }
 add_shortcode('noshortcode','shortcode_noshortcode');
@@ -3066,24 +3119,20 @@ function init_shuoshuo(){
 }
 
 function argon_get_search_post_type_array(){
-	$search_filter_option = get_option('argon_search_post_filter', 'post,page');
+	$search_filters_type = get_option("argon_search_filters_type", "*post,*page,shuoshuo");
+	$search_filters_type = explode(',', $search_filters_type);
 	if (!isset($_GET['post_type'])) {
-		if ($search_filter_option == 'off'){
-			return array('post', 'page');
-		}
-		$default = explode(',', $search_filter_option);
+		$default = array_filter($search_filters_type, function ($str) {	return $str[0] == '*'; });
+		$default = array_map(function ($str) { return substr($str, 1) ;}, $default);
 		return $default;
 	}
-	$post_type = $_GET['post_type'];
+	$search_filters_type = array_map(function ($str) { return $str[0] == '*' ? substr($str, 1) : $str; }, $search_filters_type);
+	$post_type = explode(',', $_GET['post_type']);
 	$arr = array();
-	if (strpos($post_type, 'post') !== false) {
-		array_push($arr, 'post');
-	}
-	if (strpos($post_type, 'page') !== false) {
-		array_push($arr, 'page');
-	}
-	if (strpos($post_type, 'shuoshuo') !== false && !in_array('hide_shuoshuo', explode(',', $search_filter_option))) {
-		array_push($arr, 'shuoshuo');
+	foreach ($search_filters_type as $type) {
+		if (in_array($type, $post_type)) {
+			array_push($arr, $type);
+		}
 	}
 	if (count($arr) == 0) {
 		array_push($arr, 'none');
@@ -3092,6 +3141,9 @@ function argon_get_search_post_type_array(){
 }
 function search_filter($query) {
 	if (!$query -> is_search || is_admin()) {
+		return $query;
+	}
+	if (get_option('argon_enable_search_filters', 'true') == 'false'){
 		return $query;
 	}
 	$query -> set('post_type', argon_get_search_post_type_array());

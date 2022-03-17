@@ -11,6 +11,11 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/commits/master) [![GitHub Release Date](https://img.shields.io/github/release-date/solstice23/argon-theme?style=flat-square)](https://github.com/solstice23/argon-theme/releases) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/solstice23/argon-theme?style=flat-square)
 
+# 状态
+
+> 前端工程化重构初步完成，1.x 版本将冻结开发，如有前端相关的 PR 请提交到 [dev](https://github.com/solstice23/argon-theme/tree/dev) 分支。后续将逐渐重构前端代码。
+
+
 # 特性
 
 + **轻盈美观** - 使用 Argon Design System 前端框架，细节精致，轻盈美观
@@ -35,13 +40,14 @@ Hexo 版本 : [github.com/solstice23/hexo-theme-argon](https://github.com/solsti
 
 [Argon-Theme 文档 : https://argon-docs.solstice23.top](https://argon-docs.solstice23.top/)
 
-# Demo
-
-主题效果预览
+# Demo / 用户墙
 
 [solstice23.top](https://solstice23.top)
 
 [argon-demo.solstice23.top](http://argon-demo.solstice23.top)
+
+前往 [Argon 用户墙](https://argon-showcase.solstice23.top/) 查看更多博客的主题效果。
+
 
 # 注意
 
@@ -69,6 +75,12 @@ Argon 使用 [GPL V3.0](https://github.com/solstice23/argon-theme/blob/master/LI
 自动推送更新消息以及其他关于 Argon 的消息
 
 # 更新日志
+
+## 20220214 v1.3.4
++ 支持自定义搜索过滤器顺序和默认选中状态
++ 支持添加自定义文章类型的搜索过滤器
++ 修复代码块样式问题
++ 其他改进与修复
 
 ## 20220211 v1.3.3
 + 🌈 新增 后台管理界面美化 (在"用户-个人资料-管理界面配色方案" 或 "Argon设置-杂项" 中开启)
