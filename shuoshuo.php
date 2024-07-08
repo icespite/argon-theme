@@ -1,14 +1,16 @@
 <?php 
 /*
 Template Name: 说说
+* 该页面可以用 归档页 替代
 */
-query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=-1");
+$paged = isset($_GET['current_page']) ? $_GET['current_page'] : 1;
+query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=30&paged=$paged");
 ?>
 
 <?php get_header(); ?>
 
 <div class="page-information-card-container">
-	<div class="page-information-card card bg-gradient-secondary shadow-lg border-0">
+	<div class="page-information-card card bg-gradient-secondary shadow-lg border-0" <?php if (isset($_GET['post_type'])){echo 'style="animation: none;"';}?>>
 		<div class="card-body">
 			<h3 class="text-black"><?php _e('说说', 'argon');?></h3>
 			<?php if (the_archive_description() != ''){ ?>
@@ -32,15 +34,17 @@ query_posts("post_type=shuoshuo&post_status=publish&posts_per_page=-1");
 		<?php
 			while ( have_posts() ) :
 				the_post();
-				get_template_part( 'template-parts/content', 'shuoshuo' );
+				do_action( 'argon_single_content', 'shuoshuo' );
 			endwhile;
 		?>
 		<?php
-			echo get_argon_formatted_paginate_links_for_all_platforms();
+			echo get_argon_formatted_paginate_links_for_all_platforms(array(
+				'format' => '?current_page=%#%',
+			));
 		?>
 		<?php
 	else :
-		get_template_part( 'template-parts/content', 'none-tag' );
+		get_template_part( 'template-parts/preview/content', 'none-tag' );
 	endif;
 	?>
 

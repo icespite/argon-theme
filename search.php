@@ -37,13 +37,12 @@
 					</script>
 			<?php } ?>
 			<p class="text-black mt-3 mb-0 opacity-8">
-				<i class="fa fa-file-o mr-1"></i>
+				<i class="fa fa-file mr-1"></i>
 				<?php global $wp_query; echo $wp_query -> found_posts; ?> <?php _e('个结果', 'argon');?>
 			</p>
 		</div>
 	</div>
 </div>
-
 <?php get_sidebar(); ?>
 
 <div id="primary" class="content-area">
@@ -52,11 +51,8 @@
 		<?php
 			while ( have_posts() ) :
 				the_post();
-				if (get_post_type() == 'shuoshuo'){
-					get_template_part( 'template-parts/content-shuoshuo-preview' );
-				}else{
-					get_template_part( 'template-parts/content-preview', get_option('argon_article_list_layout', '1'));
-				}
+				get_template_part( 'template-parts/preview/content-preview', get_post_type() );
+
 			endwhile;
 		?>
 		<?php
@@ -64,7 +60,7 @@
 		?>
 		<?php
 	else :
-		get_template_part( 'template-parts/content', 'none-search' );
+		get_template_part( 'template-parts/preview/content', 'none-search' );
 	endif;
 	?>
 
