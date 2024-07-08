@@ -3,7 +3,12 @@
     "description": "A light, simple and beautiful WordPress theme",
     "type": "project",
     "require": {
-        "haozi-team/chatgpt-php": "^2.0"
+        "haozi-team/chatgpt-php": "^2.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "psr/log": "^1.1",
+        "ralouphie/getallheaders": "^3.0",
+        "ramsey/uuid": "^4.0",
+        "symfony/symfony": "^5.0"
     },
     "license": "GPLv3",
     "authors": [

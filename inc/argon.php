@@ -165,4 +165,4 @@ function check_footer_copyright(){
 		add_action('admin_notices', 'alert_footer_copyright_changed');
 	}
 }
-check_footer_copyright();
+// check_footer_copyright();
